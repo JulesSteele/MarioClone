@@ -22,8 +22,17 @@ project.ext.lwjglVersion = "3.3.6"
 project.ext.jomlVersion = "1.10.7"
 project.ext.steamworks4jVersion = "1.9.0"
 project.ext.lwjglNatives = "natives-macos-arm64"
+project.ext.imguiVersion = "1.89.0"
 
 dependencies {
+    // Dear ImGui
+    implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+    implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
+    implementation "io.github.spair:imgui-java-app:${imguiVersion}"
+
+    implementation "io.github.spair:imgui-java-natives-macos:$imguiVersion"
+
+    // LWJGL
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"

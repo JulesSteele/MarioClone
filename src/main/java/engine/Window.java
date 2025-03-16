@@ -113,11 +113,15 @@ public class Window
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
         // Enable v-sync
-        glfwSwapInterval(1);
+        glfwSwapInterval(0);
 
         // Make the window visible
         glfwShowWindow(glfwWindow);
@@ -146,11 +150,29 @@ public class Window
             if (dt >= 0)
                 currentScene.update(dt);
 
-            glfwSwapBuffers(glfwWindow);
-
             endTime = (float)glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+    }
+
+    public static int getWidth()
+    {
+        return get().width;
+    }
+
+    public static int getHeight()
+    {
+        return get().height;
+    }
+
+    public static void setWidth(int width)
+    {
+        get().width = width;
+    }
+
+    public static void setHeight(int height)
+    {
+        get().height = height;
     }
 }
