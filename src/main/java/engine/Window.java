@@ -14,6 +14,7 @@ public class Window
     private int width, height;
     private String title;
     private long glfwWindow;
+    private ImGuiLayer imGuiLayer;
 
     public float r, g, b, a;
 
@@ -74,6 +75,13 @@ public class Window
         init();
         loop();
 
+        // ====================================
+        // AFTER TERMINATION OF WINDOW
+        // ====================================
+
+        // ImGui
+        imGuiLayer.destroy();
+
         // Free the memory
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
@@ -105,9 +113,7 @@ public class Window
         // Create the window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
         if (glfwWindow == NULL)
-        {
             throw new IllegalStateException("Failed to create the GLFW window.");
-        }
 
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
@@ -131,6 +137,9 @@ public class Window
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
+        this.imGuiLayer = new ImGuiLayer(glfwWindow);
+        this.imGuiLayer.initImGui();
+
         Window.changeScene(0);
     }
 
@@ -149,6 +158,12 @@ public class Window
 
             if (dt >= 0)
                 currentScene.update(dt);
+
+            this.imGuiLayer.run();
+
+            glfwSwapBuffers(glfwWindow);
+            glfwPollEvents();
+            glClear(GL_COLOR_BUFFER_BIT);
 
             endTime = (float)glfwGetTime();
             dt = endTime - beginTime;
