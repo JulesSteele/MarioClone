@@ -159,7 +159,7 @@ public class Window
             if (dt >= 0)
                 currentScene.update(dt);
 
-            this.imGuiLayer.run();
+            this.imGuiLayer.update(currentScene);
 
             glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
