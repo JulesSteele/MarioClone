@@ -60,7 +60,7 @@ public class LevelEditorScene extends Scene
     public void imgui()
     {
         ImGui.begin("Test Window");
-        ImGui.text("Some random text");
+        ImGui.text("TESTING");
         ImGui.end();
     }
 }

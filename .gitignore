@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### ImGui ###
+imgui.ini
+imgui_log.txt

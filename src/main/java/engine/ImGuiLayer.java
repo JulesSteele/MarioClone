@@ -31,7 +31,6 @@ public class ImGuiLayer
         ImGui.newFrame();
 
         // All ImGui code should go here
-        currentScene.imgui();
         currentScene.sceneImgui();
         ImGui.showDemoWindow();
 
